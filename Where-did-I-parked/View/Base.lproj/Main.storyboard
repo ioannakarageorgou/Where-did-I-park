@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Where_did_I_parked" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcf-yX-efC">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="810"/>
+                                <hybridMapConfiguration key="preferredConfiguration"/>
+                            </mapView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="aXW-JR-l95" userLabel="Buttons Stack View">
+                                <rect key="frame" x="33" y="660" width="324" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEK-ob-LRc">
+                                        <rect key="frame" x="0.0" y="0.0" width="153.66666666666666" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="0.27058823529999998" green="0.26274509800000001" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="location" imagePlacement="top" title="Just parked here"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="justParkedPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Vk-If-Q63"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ub-gf-ERI">
+                                        <rect key="frame" x="170.66666666666663" y="0.0" width="153.33333333333337" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="0.27058823529999998" green="0.26274509800000001" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="car" imagePlacement="top" title="Find my car" imagePadding="3"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="5Js-8S-n1t"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rju-qU-K9J" userLabel="Location Button">
+                                <rect key="frame" x="33" y="57" width="324" height="46"/>
+                                <color key="tintColor" red="0.27058823529999998" green="0.26274509800000001" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <buttonConfiguration key="configuration" style="plain" image="pin" imagePlacement="leading"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aXW-JR-l95" secondAttribute="trailing" constant="33" id="8JI-hI-Y6I"/>
+                            <constraint firstItem="mcf-yX-efC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="E7P-eU-2qw"/>
+                            <constraint firstItem="aXW-JR-l95" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="33" id="Gka-pv-QBR"/>
+                            <constraint firstItem="Rju-qU-K9J" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="33" id="LHJ-BP-UZw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aXW-JR-l95" secondAttribute="bottom" constant="50" id="MpO-kF-tLR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Rju-qU-K9J" secondAttribute="trailing" constant="33" id="YZC-8b-CiT"/>
+                            <constraint firstItem="mcf-yX-efC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="blB-eE-pwA"/>
+                            <constraint firstItem="mcf-yX-efC" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gew-hD-MJG"/>
+                            <constraint firstItem="mcf-yX-efC" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="iO8-ze-nKN"/>
+                            <constraint firstItem="Rju-qU-K9J" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="sMf-KB-R2j"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="findCarButton" destination="7ub-gf-ERI" id="tn9-Zv-ZbO"/>
+                        <outlet property="justParkedButton" destination="sEK-ob-LRc" id="w6g-LD-F9x"/>
+                        <outlet property="locationLabel" destination="Rju-qU-K9J" id="8Jc-F8-PKf"/>
+                        <outlet property="map" destination="mcf-yX-efC" id="rQT-lK-9ed"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-40" y="3.5545023696682461"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="car" width="64" height="64"/>
+        <image name="location" width="64" height="64"/>
+        <image name="pin" width="32" height="32"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
