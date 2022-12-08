@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var findCarButton: UIButton!
     
     let locationManager = CLLocationManager()
+    var parkingModeEnabled: Bool = true
     
     let userDefaults = UserDefaults.standard
     
@@ -30,6 +31,9 @@ class ViewController: UIViewController {
         map.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingLocation()
+//        map.showsUserLocation = true
         
         if let currentLocation = loadUserLocation(), let currentAddress = loadUserAddress() {
             print("LOADED: currentLocation = \(currentLocation), currentAddress = \(currentAddress)")
@@ -38,20 +42,23 @@ class ViewController: UIViewController {
             updateCurrentAddressButton(with: currentAddress)
         }
         
-//        self.overrideUserInterfaceStyle = .dark
-//        let darkLayer = CALayer()
-//        darkLayer.frame = self.view.bounds
-//        darkLayer.compositingFilter = "darkMode"
-//        darkLayer.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.7).cgColor
-//        self.map.layer.addSublayer(darkLayer)
-
+        self.overrideUserInterfaceStyle = .dark
     }
 
     @IBAction func justParkedPressed(_ sender: Any) {
+        parkingModeEnabled = true
+        startUpdatingLocation()
+    }
+    
+    @IBAction func findMyCarPressed(_ sender: Any) {
+        parkingModeEnabled = false
+        startUpdatingLocation()
+    }
+    
+    func startUpdatingLocation() {
         locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
-//            locationManager.requestLocation()
         }
     }
     
@@ -84,12 +91,20 @@ class ViewController: UIViewController {
         let lat = location.coordinate.latitude
         let lon = location.coordinate.longitude
         let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
         map.setRegion(region, animated: true)
         
         let mkAnnotation: MKPointAnnotation = MKPointAnnotation()
         mkAnnotation.coordinate = CLLocationCoordinate2DMake(lat, lon)
         map.addAnnotation(mkAnnotation)
+    }
+    
+    func createRoute(_ location: CLLocation) {
+        let currentLocation = CLLocationCoordinate2D.init(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        if let parkingLocation = loadUserLocation() {
+            let destination = CLLocationCoordinate2D.init(latitude: parkingLocation.coordinate.latitude, longitude: parkingLocation.coordinate.longitude)
+            showRouteOnMap(pickupCoordinate: currentLocation, destinationCoordinate: destination)
+        }
     }
     
     func updateCurrentAddressButton(with title: String) {
@@ -101,6 +116,32 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
+
+            let request = MKDirections.Request()
+            request.source = MKMapItem(placemark: MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil))
+            request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil))
+            request.requestsAlternateRoutes = true
+            request.transportType = .automobile
+
+            let directions = MKDirections(request: request)
+
+            directions.calculate { [unowned self] response, error in
+                guard let unwrappedResponse = response else { return }
+                
+                //for getting just one route
+                if let route = unwrappedResponse.routes.first {
+                    //show on map
+                    self.map.addOverlay(route.polyline)
+                    //set the map area to show the route
+                    self.map.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
+                }
+
+                //if you want to show multiple routes then you can get all routes in a loop in the following statement
+                //for route in unwrappedResponse.routes {}
+            }
+        }
 }
 
 //MARK: - CLLocation Manager Delegate Methods
@@ -126,12 +167,17 @@ extension ViewController : CLLocationManagerDelegate {
         if let location = locations.last {
             locationManager.stopUpdatingLocation()
             
-            removeOldAnnotations()
-            addPinToCurrentLocation(location)
-            
-            saveUserLocation(location)
-            let currentAddress = getUserAddress(location)
-            saveUserAddress(currentAddress)
+            if parkingModeEnabled {
+                // add pin to current location and save it as a parking spot
+                removeOldAnnotations()
+                addPinToCurrentLocation(location)
+                
+                saveUserLocation(location)
+                let currentAddress = getUserAddress(location)
+                saveUserAddress(currentAddress)
+            } else {
+               createRoute(location)
+            }
         }
     }
     
@@ -144,9 +190,8 @@ extension ViewController : CLLocationManagerDelegate {
                     if placemarksArray!.count > 0 {
                         let placemark = placemarksArray?[0]
                         let address = "\(placemark?.thoroughfare ?? "") \(placemark?.subThoroughfare ?? "") \(placemark?.locality ?? "") \(placemark?.postalCode ?? "") \(placemark?.country ?? "")"
-                        print("current address: \(address)")
+                        print("getUserAddress:: current address: \(address)")
                         currentAddress = address
-                        print("currentAddress = \(currentAddress)")
                         self.saveUserAddress(currentAddress)
                         self.updateCurrentAddressButton(with: address)
                     }
@@ -170,9 +215,21 @@ extension ViewController : CLLocationManagerDelegate {
 extension ViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
-        annotationView.markerTintColor = UIColor(rgb: 0x4543A4)
-        annotationView.glyphImage = UIImage(named: "car.rear")
-        return annotationView
+//        if parkingModeEnabled {
+            let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
+            annotationView.markerTintColor = UIColor(rgb: 0x4543A4)
+            annotationView.glyphImage = UIImage(named: "car.rear")
+            return annotationView
+//        } else {
+//            return nil
+//        }
+    }
+    
+    //this delegate function is for displaying the route overlay and styling it
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+         let renderer = MKPolylineRenderer(overlay: overlay)
+         renderer.strokeColor = UIColor.red
+         renderer.lineWidth = 5.0
+         return renderer
     }
 }

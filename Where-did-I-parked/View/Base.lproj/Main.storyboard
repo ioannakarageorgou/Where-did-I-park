@@ -20,7 +20,7 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcf-yX-efC">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="810"/>
-                                <hybridMapConfiguration key="preferredConfiguration"/>
+                                <standardMapConfiguration key="preferredConfiguration"/>
                             </mapView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="aXW-JR-l95" userLabel="Buttons Stack View">
                                 <rect key="frame" x="33" y="660" width="324" height="100"/>
@@ -57,6 +57,9 @@
                                                 <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="findMyCarPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6K9-eL-0BE"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
