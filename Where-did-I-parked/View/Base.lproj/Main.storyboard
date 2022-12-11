@@ -4,9 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
-        <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,10 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcf-yX-efC">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="810"/>
-                                <standardMapConfiguration key="preferredConfiguration"/>
-                            </mapView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="aXW-JR-l95" userLabel="Buttons Stack View">
                                 <rect key="frame" x="33" y="660" width="324" height="100"/>
                                 <subviews>
@@ -67,31 +61,45 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rju-qU-K9J" userLabel="Location Button">
-                                <rect key="frame" x="33" y="57" width="324" height="46"/>
+                                <rect key="frame" x="33" y="447" width="324" height="46"/>
                                 <color key="tintColor" red="0.27058823529999998" green="0.26274509800000001" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <buttonConfiguration key="configuration" style="plain" image="pin" imagePlacement="leading"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where did I parked?" textAlignment="center" lineBreakMode="wordWrap" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVy-2o-8zB">
+                                <rect key="frame" x="55" y="55" width="280" height="33.666666666666657"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="Parking-logo" translatesAutoresizingMaskIntoConstraints="NO" id="h8B-Bx-3II">
+                                <rect key="frame" x="30" y="93.666666666666671" width="330" height="226.33333333333331"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.27058823529999998" green="0.26274509800000001" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="OVy-2o-8zB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="55" id="6aR-qX-3qb"/>
+                            <constraint firstItem="Rju-qU-K9J" firstAttribute="top" secondItem="h8B-Bx-3II" secondAttribute="bottom" constant="127" id="7em-h8-FOQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aXW-JR-l95" secondAttribute="trailing" constant="33" id="8JI-hI-Y6I"/>
-                            <constraint firstItem="mcf-yX-efC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="E7P-eU-2qw"/>
                             <constraint firstItem="aXW-JR-l95" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="33" id="Gka-pv-QBR"/>
                             <constraint firstItem="Rju-qU-K9J" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="33" id="LHJ-BP-UZw"/>
+                            <constraint firstItem="Rju-qU-K9J" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="400" id="Loz-XP-QOc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aXW-JR-l95" secondAttribute="bottom" constant="50" id="MpO-kF-tLR"/>
+                            <constraint firstItem="OVy-2o-8zB" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="55" id="QV8-2w-MAu"/>
+                            <constraint firstItem="h8B-Bx-3II" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="SyW-OF-OoB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OVy-2o-8zB" secondAttribute="trailing" constant="55" id="UTA-3B-O1q"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="h8B-Bx-3II" secondAttribute="trailing" constant="30" id="XKy-KI-4ay"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Rju-qU-K9J" secondAttribute="trailing" constant="33" id="YZC-8b-CiT"/>
-                            <constraint firstItem="mcf-yX-efC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="blB-eE-pwA"/>
-                            <constraint firstItem="mcf-yX-efC" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gew-hD-MJG"/>
-                            <constraint firstItem="mcf-yX-efC" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="iO8-ze-nKN"/>
-                            <constraint firstItem="Rju-qU-K9J" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="sMf-KB-R2j"/>
+                            <constraint firstItem="h8B-Bx-3II" firstAttribute="top" secondItem="OVy-2o-8zB" secondAttribute="bottom" constant="5" id="gCi-Cq-6Au"/>
+                            <constraint firstItem="h8B-Bx-3II" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="n2u-hZ-uk7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="h8B-Bx-3II" secondAttribute="trailing" constant="30" id="qWh-MM-ySl"/>
+                            <constraint firstItem="h8B-Bx-3II" firstAttribute="top" secondItem="OVy-2o-8zB" secondAttribute="bottom" constant="5" id="r5f-mS-oud"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="findCarButton" destination="7ub-gf-ERI" id="tn9-Zv-ZbO"/>
                         <outlet property="justParkedButton" destination="sEK-ob-LRc" id="w6g-LD-F9x"/>
                         <outlet property="locationLabel" destination="Rju-qU-K9J" id="8Jc-F8-PKf"/>
-                        <outlet property="map" destination="mcf-yX-efC" id="rQT-lK-9ed"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -100,11 +108,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Parking-logo" width="1024" height="1024"/>
         <image name="car" width="64" height="64"/>
         <image name="location" width="64" height="64"/>
         <image name="pin" width="32" height="32"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

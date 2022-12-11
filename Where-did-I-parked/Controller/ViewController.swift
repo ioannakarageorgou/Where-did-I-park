@@ -11,7 +11,6 @@ import CoreLocation
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var locationLabel: UIButton!
     @IBOutlet weak var justParkedButton: UIButton!
     @IBOutlet weak var findCarButton: UIButton!
@@ -27,15 +26,12 @@ class ViewController: UIViewController {
         justParkedButton.addBlurEffect(style: .regular, cornerRadius: 10, padding: 0)
         findCarButton.addBlurEffect(style: .regular, cornerRadius: 10, padding: 0)
         
-        map.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         
         if let currentLocation = loadUserLocation(), let currentAddress = loadUserAddress() {
             print("LOADED: currentLocation = \(currentLocation), currentAddress = \(currentAddress)")
-            removeOldAnnotations()
-            addPinToCurrentLocation(currentLocation)
             updateCurrentAddressButton(with: currentAddress)
         }
         
@@ -78,18 +74,6 @@ class ViewController: UIViewController {
             return loadedAddress
         }
         return nil
-    }
-    
-    func addPinToCurrentLocation(_ location: CLLocation) {
-        let lat = location.coordinate.latitude
-        let lon = location.coordinate.longitude
-        let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
-        map.setRegion(region, animated: true)
-        
-        let mkAnnotation: MKPointAnnotation = MKPointAnnotation()
-        mkAnnotation.coordinate = CLLocationCoordinate2DMake(lat, lon)
-        map.addAnnotation(mkAnnotation)
     }
     
     func updateCurrentAddressButton(with title: String) {
@@ -144,11 +128,6 @@ extension ViewController : CLLocationManagerDelegate {
         
         if let location = locations.last {
             locationManager.stopUpdatingLocation()
-            
-            // add pin to current location and save it as a parking spot
-            removeOldAnnotations()
-            addPinToCurrentLocation(location)
-            
             saveUserLocation(location)
             let currentAddress = getUserAddress(location)
             saveUserAddress(currentAddress)
@@ -173,33 +152,5 @@ extension ViewController : CLLocationManagerDelegate {
 
             }
         return currentAddress
-    }
-    
-    func removeOldAnnotations() {
-        let annotations = self.map.annotations
-        print("Removing old annotations (\(annotations.count)")
-        for annotation in annotations {
-            self.map.removeAnnotation(annotation)
-        }
-    }
-}
-
-//MARK: - MKMap View Delegate Methods
-
-extension ViewController: MKMapViewDelegate {
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
-        annotationView.markerTintColor = UIColor(rgb: 0x4543A4)
-        annotationView.glyphImage = UIImage(named: "car.rear")
-        return annotationView
-    }
-    
-    //this delegate function is for displaying the route overlay and styling it
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-         let renderer = MKPolylineRenderer(overlay: overlay)
-         renderer.strokeColor = UIColor.red
-         renderer.lineWidth = 5.0
-         return renderer
     }
 }
