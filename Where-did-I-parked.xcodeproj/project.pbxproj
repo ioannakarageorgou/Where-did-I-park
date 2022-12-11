@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EA02D15B2938F2CD00A9A45B /* MapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = EA02D15A2938F2CD00A9A45B /* MapStyle.json */; };
 		EA8D1FA7293B44AE00F578E4 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D1FA6293B44AE00F578E4 /* UIColorExtension.swift */; };
 		EA978272293539A1004260C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA978271293539A1004260C4 /* AppDelegate.swift */; };
 		EA978274293539A1004260C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA978273293539A1004260C4 /* SceneDelegate.swift */; };
@@ -20,7 +19,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EA02D15A2938F2CD00A9A45B /* MapStyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapStyle.json; sourceTree = "<group>"; };
 		EA8D1FA6293B44AE00F578E4 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		EA97826E293539A1004260C4 /* Where-did-I-parked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Where-did-I-parked.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA978271293539A1004260C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,7 +70,6 @@
 				EA97827D293539A3004260C4 /* Assets.xcassets */,
 				EA97827F293539A3004260C4 /* LaunchScreen.storyboard */,
 				EA978282293539A3004260C4 /* Info.plist */,
-				EA02D15A2938F2CD00A9A45B /* MapStyle.json */,
 				EA97827A293539A1004260C4 /* Where_did_I_parked.xcdatamodeld */,
 			);
 			path = "Where-did-I-parked";
@@ -161,7 +158,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA02D15B2938F2CD00A9A45B /* MapStyle.json in Resources */,
 				EA978281293539A3004260C4 /* LaunchScreen.storyboard in Resources */,
 				EA97827E293539A3004260C4 /* Assets.xcassets in Resources */,
 				EA978279293539A1004260C4 /* Main.storyboard in Resources */,

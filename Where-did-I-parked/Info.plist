@@ -6,6 +6,11 @@
 	<string>This application wants to access your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This application wants to access your location</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+		<string>comgooglemaps-x-callback</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var findCarButton: UIButton!
     
     let locationManager = CLLocationManager()
-    var parkingModeEnabled: Bool = true
     
     let userDefaults = UserDefaults.standard
     
@@ -32,8 +31,6 @@ class ViewController: UIViewController {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
-//        locationManager.startUpdatingLocation()
-//        map.showsUserLocation = true
         
         if let currentLocation = loadUserLocation(), let currentAddress = loadUserAddress() {
             print("LOADED: currentLocation = \(currentLocation), currentAddress = \(currentAddress)")
@@ -42,23 +39,19 @@ class ViewController: UIViewController {
             updateCurrentAddressButton(with: currentAddress)
         }
         
-        self.overrideUserInterfaceStyle = .dark
+//        self.overrideUserInterfaceStyle = .dark
     }
 
     @IBAction func justParkedPressed(_ sender: Any) {
-        parkingModeEnabled = true
-        startUpdatingLocation()
-    }
-    
-    @IBAction func findMyCarPressed(_ sender: Any) {
-        parkingModeEnabled = false
-        startUpdatingLocation()
-    }
-    
-    func startUpdatingLocation() {
         locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
+        }
+    }
+    
+    @IBAction func findMyCarPressed(_ sender: Any) {
+        if let parkingLocation = loadUserLocation() {
+            openGoogleMap(to: parkingLocation)
         }
     }
     
@@ -99,14 +92,6 @@ class ViewController: UIViewController {
         map.addAnnotation(mkAnnotation)
     }
     
-    func createRoute(_ location: CLLocation) {
-        let currentLocation = CLLocationCoordinate2D.init(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        if let parkingLocation = loadUserLocation() {
-            let destination = CLLocationCoordinate2D.init(latitude: parkingLocation.coordinate.latitude, longitude: parkingLocation.coordinate.longitude)
-            showRouteOnMap(pickupCoordinate: currentLocation, destinationCoordinate: destination)
-        }
-    }
-    
     func updateCurrentAddressButton(with title: String) {
         DispatchQueue.main.async {
             if !title.isEmpty {
@@ -117,31 +102,24 @@ class ViewController: UIViewController {
         }
     }
     
-    func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
-
-            let request = MKDirections.Request()
-            request.source = MKMapItem(placemark: MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil))
-            request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil))
-            request.requestsAlternateRoutes = true
-            request.transportType = .automobile
-
-            let directions = MKDirections(request: request)
-
-            directions.calculate { [unowned self] response, error in
-                guard let unwrappedResponse = response else { return }
-                
-                //for getting just one route
-                if let route = unwrappedResponse.routes.first {
-                    //show on map
-                    self.map.addOverlay(route.polyline)
-                    //set the map area to show the route
-                    self.map.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
+    func openGoogleMap(to location: CLLocation) {
+        if let parkingLocation = loadUserLocation() {
+            let destLat = parkingLocation.coordinate.latitude
+            let destLon = parkingLocation.coordinate.longitude
+            
+            if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+                //if phone has an app(
+                if let url = URL(string: "comgooglemaps-x-callback://?saddr=&daddr=\(Double(destLat)),\(Double(destLon))&directionsmode=walking") {
+                    UIApplication.shared.open(url, options: [:])
+                 }
+            } else {
+                //Open in browser
+                if let urlDestination = URL.init(string: "https://www.google.co.in/maps/dir/?saddr=&daddr=\(Double(destLat)),\(Double(destLon))&directionsmode=walking") {
+                    UIApplication.shared.open(urlDestination)
                 }
-
-                //if you want to show multiple routes then you can get all routes in a loop in the following statement
-                //for route in unwrappedResponse.routes {}
             }
         }
+    }
 }
 
 //MARK: - CLLocation Manager Delegate Methods
@@ -167,17 +145,13 @@ extension ViewController : CLLocationManagerDelegate {
         if let location = locations.last {
             locationManager.stopUpdatingLocation()
             
-            if parkingModeEnabled {
-                // add pin to current location and save it as a parking spot
-                removeOldAnnotations()
-                addPinToCurrentLocation(location)
-                
-                saveUserLocation(location)
-                let currentAddress = getUserAddress(location)
-                saveUserAddress(currentAddress)
-            } else {
-               createRoute(location)
-            }
+            // add pin to current location and save it as a parking spot
+            removeOldAnnotations()
+            addPinToCurrentLocation(location)
+            
+            saveUserLocation(location)
+            let currentAddress = getUserAddress(location)
+            saveUserAddress(currentAddress)
         }
     }
     
@@ -215,14 +189,10 @@ extension ViewController : CLLocationManagerDelegate {
 extension ViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        if parkingModeEnabled {
-            let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
-            annotationView.markerTintColor = UIColor(rgb: 0x4543A4)
-            annotationView.glyphImage = UIImage(named: "car.rear")
-            return annotationView
-//        } else {
-//            return nil
-//        }
+        let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
+        annotationView.markerTintColor = UIColor(rgb: 0x4543A4)
+        annotationView.glyphImage = UIImage(named: "car.rear")
+        return annotationView
     }
     
     //this delegate function is for displaying the route overlay and styling it
