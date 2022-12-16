@@ -11,6 +11,7 @@ import CoreLocation
 
 class ViewController: UIViewController {
 
+    @IBOutlet var backgroundGradientView: UIView!
     @IBOutlet weak var locationLabel: UIButton!
     @IBOutlet weak var justParkedButton: UIButton!
     @IBOutlet weak var findCarButton: UIButton!
@@ -21,6 +22,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupGradientView()
         
         locationLabel.isHidden = true
         justParkedButton.addBlurEffect(style: .regular, cornerRadius: 10, padding: 0)
@@ -49,6 +51,14 @@ class ViewController: UIViewController {
         if let parkingLocation = loadUserLocation() {
             openGoogleMap(to: parkingLocation)
         }
+    }
+    
+    func setupGradientView() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [UIColor(rgb: 0x4543A4).cgColor, UIColor(rgb: 0x7DDDD2).cgColor]
+        gradientLayer.shouldRasterize = true
+        backgroundGradientView.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     func saveUserLocation(_ location: CLLocation) {
@@ -82,6 +92,9 @@ class ViewController: UIViewController {
                 self.locationLabel.isHidden = false
                 self.locationLabel.addBlurEffect(style: .regular, cornerRadius: 20, padding: 0)
                 self.locationLabel.setTitle(title, for: .normal)
+                self.locationLabel.titleLabel?.font = UIFont(name: "Nunito Medium", size: 18)
+                self.locationLabel.titleLabel?.numberOfLines = 0
+                self.locationLabel.titleLabel?.lineBreakMode = .byWordWrapping
             }
         }
     }
