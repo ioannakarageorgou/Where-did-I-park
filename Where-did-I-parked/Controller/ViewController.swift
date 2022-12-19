@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         setupGradientView()
         
         locationLabel.isHidden = true
+        locationLabel.addBlurEffect(style: .light, cornerRadius: 20, padding: 0)
         justParkedButton.addBlurEffect(style: .light, cornerRadius: 10, padding: 0)
         findCarButton.addBlurEffect(style: .light, cornerRadius: 10, padding: 0)
         
@@ -36,14 +37,15 @@ class ViewController: UIViewController {
             print("LOADED: currentLocation = \(currentLocation), currentAddress = \(currentAddress)")
             updateCurrentAddressButton(with: currentAddress)
         }
-        
-//        self.overrideUserInterfaceStyle = .dark
     }
 
     @IBAction func justParkedPressed(_ sender: Any) {
-        locationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingLocation()
+        print("justParkedPressed")
+        DispatchQueue.global().async {
+            self.locationManager.requestWhenInUseAuthorization()
+            if CLLocationManager.locationServicesEnabled() {
+                self.locationManager.startUpdatingLocation()
+            }
         }
     }
     
@@ -90,7 +92,6 @@ class ViewController: UIViewController {
         DispatchQueue.main.async {
             if !title.isEmpty {
                 self.locationLabel.isHidden = false
-//                self.locationLabel.addBlurEffect(style: .regular, cornerRadius: 20, padding: 0)
                 self.locationLabel.setTitle(title, for: .normal)
                 self.locationLabel.titleLabel?.font = UIFont(name: "Nunito Medium", size: 18)
                 self.locationLabel.titleLabel?.textColor = UIColor.white
