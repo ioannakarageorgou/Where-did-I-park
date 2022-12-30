@@ -26,7 +26,7 @@
 		EA23E123294C805B00D39B7D /* Nunito-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Medium.ttf"; sourceTree = "<group>"; };
 		EA23E125294C806400D39B7D /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Regular.ttf"; sourceTree = "<group>"; };
 		EA8D1FA6293B44AE00F578E4 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		EA97826E293539A1004260C4 /* Where-did-I-parked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Where-did-I-parked.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA97826E293539A1004260C4 /* Where-did-I-park.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Where-did-I-park.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA978271293539A1004260C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA978273293539A1004260C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		EA978275293539A1004260C4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 		EA97826F293539A1004260C4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EA97826E293539A1004260C4 /* Where-did-I-parked.app */,
+				EA97826E293539A1004260C4 /* Where-did-I-park.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -120,9 +120,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EA97826D293539A1004260C4 /* Where-did-I-parked */ = {
+		EA97826D293539A1004260C4 /* Where-did-I-park */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EA978285293539A3004260C4 /* Build configuration list for PBXNativeTarget "Where-did-I-parked" */;
+			buildConfigurationList = EA978285293539A3004260C4 /* Build configuration list for PBXNativeTarget "Where-did-I-park" */;
 			buildPhases = (
 				EA97826A293539A1004260C4 /* Sources */,
 				EA97826B293539A1004260C4 /* Frameworks */,
@@ -132,9 +132,9 @@
 			);
 			dependencies = (
 			);
-			name = "Where-did-I-parked";
+			name = "Where-did-I-park";
 			productName = "Where-did-I-parked";
-			productReference = EA97826E293539A1004260C4 /* Where-did-I-parked.app */;
+			productReference = EA97826E293539A1004260C4 /* Where-did-I-park.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -165,7 +165,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EA97826D293539A1004260C4 /* Where-did-I-parked */,
+				EA97826D293539A1004260C4 /* Where-did-I-park */,
 			);
 		};
 /* End PBXProject section */
@@ -347,6 +347,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Where-did-I-parked/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Where did I parked?";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This application wants to access your location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This application wants to access your location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -358,7 +360,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "oldYeti.Where-did-I-parked";
+				PRODUCT_BUNDLE_IDENTIFIER = "oldYeti.Where-did-I-park";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -377,6 +379,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Where-did-I-parked/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Where did I parked?";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This application wants to access your location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This application wants to access your location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -388,7 +392,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "oldYeti.Where-did-I-parked";
+				PRODUCT_BUNDLE_IDENTIFIER = "oldYeti.Where-did-I-park";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -408,7 +412,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EA978285293539A3004260C4 /* Build configuration list for PBXNativeTarget "Where-did-I-parked" */ = {
+		EA978285293539A3004260C4 /* Build configuration list for PBXNativeTarget "Where-did-I-park" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EA978286293539A3004260C4 /* Debug */,

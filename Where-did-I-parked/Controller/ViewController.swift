@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     func setupGradientView() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor(rgb: 0x4543A4).cgColor, UIColor(rgb: 0x7DDDD2).cgColor]
+        gradientLayer.colors = [UIColor(rgb: 0x4543A4).cgColor, UIColor(rgb: 0xa2a1d1).cgColor]
         gradientLayer.shouldRasterize = true
         backgroundGradientView.layer.insertSublayer(gradientLayer, at: 0)
     }
