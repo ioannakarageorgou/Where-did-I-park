@@ -3,4 +3,5 @@
 
 Save your parking position and then get guided information about your last saved spot via Google Maps
 
-<img src="[https://miro.medium.com/max/4800/1*dfANVaxMyBnUXHt99rbS1w.webp](https://user-images.githubusercontent.com/46647351/217468069-c0ef6a4d-ab79-41db-afb1-b734040c3a24.jpg)" width="300" height="550" />
+
+![329852844_1212957192654724_5633733652552551282_n](https://user-images.githubusercontent.com/46647351/217469719-b7ebaa8c-729a-4808-a14f-67996586feef.jpg|width=300px)
